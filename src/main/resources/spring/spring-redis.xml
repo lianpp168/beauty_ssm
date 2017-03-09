@@ -7,12 +7,12 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
         
-	<!-- 缓存的层级-->
+	<!--&lt;!&ndash; 缓存的层级&ndash;&gt;
  	<context:component-scan base-package="com.yingjun.ssm.cache" />
-	<!-- 引入redis配置 -->
+	&lt;!&ndash; 引入redis配置 &ndash;&gt;
  	<context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
 
-	<!-- Redis 配置 -->
+	&lt;!&ndash; Redis 配置 &ndash;&gt;
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<property name="maxTotal" value="${redis.pool.maxTotal}" />
 		<property name="maxIdle" value="${redis.pool.maxIdle}" />
@@ -20,8 +20,8 @@
 		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
 	</bean>
 
-	<!-- JedisCluster 集群高可用配置 -->
-	<!--<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+	&lt;!&ndash; JedisCluster 集群高可用配置 &ndash;&gt;
+	&lt;!&ndash;<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
 		<constructor-arg index="0">
 			<set>
 				<bean class="redis.clients.jedis.HostAndPort">
@@ -53,10 +53,10 @@
 		<constructor-arg index="1" value="2000" type="int"></constructor-arg>
 		<constructor-arg index="2" value="100" type="int"></constructor-arg>
 		<constructor-arg index="3" ref="jedisPoolConfig"></constructor-arg>
-	</bean>-->
+	</bean>&ndash;&gt;
 
-	<!--redis Sentinel主从高可用方案配置 -->
-	<!-- <bean id="sentinelConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+	&lt;!&ndash;redis Sentinel主从高可用方案配置 &ndash;&gt;
+	&lt;!&ndash; <bean id="sentinelConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
 		<property name="master">
 			<bean class="org.springframework.data.redis.connection.RedisNode">
 				<property name="name" value="master-1"></property>
@@ -85,9 +85,9 @@
 			<ref bean="jedisPoolConfig" />
 		</property>
 		<constructor-arg name="sentinelConfig" ref="sentinelConfiguration" />
-	</bean> -->
+	</bean> &ndash;&gt;
 
-	<!-- redis单节点数据库连接配置 -->
+	&lt;!&ndash; redis单节点数据库连接配置 &ndash;&gt;
 	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 		<property name="hostName" value="${redis.ip}" />
 		<property name="port" value="${redis.port}" />
@@ -95,9 +95,9 @@
 		<property name="poolConfig" ref="jedisPoolConfig" />
 	</bean> 
 
-	<!-- redisTemplate配置，redisTemplate是对Jedis的对redis操作的扩展，有更多的操作，封装使操作更便捷 -->
+	&lt;!&ndash; redisTemplate配置，redisTemplate是对Jedis的对redis操作的扩展，有更多的操作，封装使操作更便捷 &ndash;&gt;
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
 		<property name="connectionFactory" ref="jedisConnectionFactory" />
-	</bean>
+	</bean>-->
 	
 </beans>

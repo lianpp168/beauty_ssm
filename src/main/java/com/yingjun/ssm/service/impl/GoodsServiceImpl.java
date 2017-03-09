@@ -30,13 +30,13 @@ public class GoodsServiceImpl implements GoodsService {
 	private OrderDao orderDao;
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private RedisCache cache;
+	//@Autowired
+	//private RedisCache cache;
 
 	@Override
 	public List<Goods> getGoodsList(int offset, int limit) {
 		String cache_key = RedisCache.CAHCENAME + "|getGoodsList|" + offset + "|" + limit;
-		List<Goods> result_cache = cache.getListCache(cache_key, Goods.class);
+		/*List<Goods> result_cache = cache.getListCache(cache_key, Goods.class);
 		if (result_cache != null) {
 			LOG.info("get cache with key:" + cache_key);
 		} else {
@@ -46,7 +46,8 @@ public class GoodsServiceImpl implements GoodsService {
 			LOG.info("put cache with key:" + cache_key);
 			return result_cache;
 		}
-		return result_cache;
+		return result_cache;*/
+		return goodsDao.queryAll(offset, limit);
 	}
 
 	@Transactional
@@ -72,8 +73,8 @@ public class GoodsServiceImpl implements GoodsService {
 			} else {
 				// 买卖成功
 				// 此时缓存中的数据不是最新的，需要对缓存进行清理（具体的缓存策略还是要根据具体需求制定）
-				cache.deleteCacheWithPattern("getGoodsList*");
-				LOG.info("delete cache with key: getGoodsList*");
+				//cache.deleteCacheWithPattern("getGoodsList*");
+				//LOG.info("delete cache with key: getGoodsList*");
 				return;
 			}
 		} else {
@@ -91,8 +92,8 @@ public class GoodsServiceImpl implements GoodsService {
 				} else {
 					// 买卖成功
 					// 此时缓存中的数据不再是最新的，需要对缓存进行清理（具体的缓存策略还是要根据具体需求制定）
-					cache.deleteCacheWithPattern("getGoodsList*");
-					LOG.info("delete cache with key: getGoodsList*");
+					//cache.deleteCacheWithPattern("getGoodsList*");
+					//LOG.info("delete cache with key: getGoodsList*");
 					return;
 				}
 			}

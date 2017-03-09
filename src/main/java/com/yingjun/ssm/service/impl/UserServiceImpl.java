@@ -17,14 +17,14 @@ public class UserServiceImpl implements UserService {
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private RedisCache cache;
+	//@Autowired
+	//private RedisCache cache;
 	
 	
 	@Override
 	public List<User> getUserList(int offset, int limit) {
 		String cache_key=RedisCache.CAHCENAME+"|getUserList|"+offset+"|"+limit;
-		//先去缓存中取
+		/*//先去缓存中取
 		List<User> result_cache=cache.getListCache(cache_key, User.class);
 		if(result_cache==null){
 			//缓存中没有再去数据库取，并插入缓存（缓存时间为60秒）
@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
 		}else{
 			LOG.info("get cache with key:"+cache_key);
 		}
-		return result_cache;
+		return result_cache;*/
+		return userDao.queryAll(offset, limit);
 	}
 	
 	
